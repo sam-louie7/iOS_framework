@@ -1,0 +1,11 @@
+framework module Louie7 {
+  umbrella header "Louie7.h"
+
+  export *
+  module * { export * }
+}
+
+module Louie7.Swift {
+    header "Louie7-Swift.h"
+    requires objc
+}

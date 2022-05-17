@@ -1,0 +1,254 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6 (swiftlang-5.6.0.323.62 clang-1316.0.20.8)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Louie7
+import Accelerate
+import BackgroundTasks
+import Contacts
+import CoreImage
+import CoreLocation
+import CryptoKit
+import EventKit
+import Foundation
+@_exported import Louie7
+import MediaPlayer
+import Network
+import Photos
+import Swift
+import SystemConfiguration
+import TensorFlowLiteC
+import UIKit
+import _Concurrency
+@_hasMissingDesignatedInitializers public class CalendarCollector : Louie7.Collector {
+  public func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  public func beginCollecting()
+  public func getCollectedData() -> Louie7.CollectorData
+  @objc deinit
+}
+public struct Tensor : Swift.Equatable, Swift.Hashable {
+  public let name: Swift.String
+  public let dataType: Louie7.Tensor.DataType
+  public let shape: Louie7.Tensor.Shape
+  public let data: Foundation.Data
+  public let quantizationParameters: Louie7.QuantizationParameters?
+  public static func == (a: Louie7.Tensor, b: Louie7.Tensor) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Louie7.Tensor {
+  public enum DataType : Swift.Equatable, Swift.Hashable {
+    case bool
+    case uInt8
+    case int16
+    case int32
+    case int64
+    case float16
+    case float32
+    public static func == (a: Louie7.Tensor.DataType, b: Louie7.Tensor.DataType) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+extension Louie7.Tensor {
+  public struct Shape : Swift.Equatable, Swift.Hashable {
+    public let rank: Swift.Int
+    public let dimensions: [Swift.Int]
+    public init(_ dimensions: [Swift.Int])
+    public init(_ elements: Swift.Int...)
+    public static func == (a: Louie7.Tensor.Shape, b: Louie7.Tensor.Shape) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+extension Louie7.Tensor.Shape : Swift.ExpressibleByArrayLiteral {
+  public init(arrayLiteral: Swift.Int...)
+  public typealias ArrayLiteralElement = Swift.Int
+}
+public enum Louie7Error : Swift.Error {
+  case invalidApiKey
+  case decode(Swift.Error)
+  case unknown(Swift.String)
+}
+@_hasMissingDesignatedInitializers public class MediaCollector : Louie7.Collector {
+  public func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  public func beginCollecting()
+  public func getCollectedData() -> Louie7.CollectorData
+  @objc deinit
+}
+public enum InterpreterError : Swift.Error, Swift.Equatable, Swift.Hashable {
+  case invalidTensorIndex(index: Swift.Int, maxIndex: Swift.Int)
+  case invalidTensorDataCount(provided: Swift.Int, required: Swift.Int)
+  case invalidTensorDataType
+  case failedToLoadModel
+  case failedToCreateInterpreter
+  case failedToResizeInputTensor(index: Swift.Int)
+  case failedToCopyDataToInputTensor
+  case failedToAllocateTensors
+  case allocateTensorsRequired
+  case invokeInterpreterRequired
+  case tensorFlowLiteError(Swift.String)
+  public static func == (a: Louie7.InterpreterError, b: Louie7.InterpreterError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Louie7.InterpreterError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+extension Louie7.InterpreterError : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class LocationCollector : ObjectiveC.NSObject, Louie7.Collector {
+  public func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  public func beginCollecting()
+  public func getCollectedData() -> Louie7.CollectorData
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension Louie7.LocationCollector : CoreLocation.CLLocationManagerDelegate {
+  @objc dynamic public func locationManager(_ manager: CoreLocation.CLLocationManager, didUpdateLocations locations: [CoreLocation.CLLocation])
+}
+public struct QuantizationParameters : Swift.Equatable, Swift.Hashable {
+  public let scale: Swift.Float
+  public let zeroPoint: Swift.Int
+  public static func == (a: Louie7.QuantizationParameters, b: Louie7.QuantizationParameters) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class MusicCollector : Louie7.Collector {
+  public func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  public func beginCollecting()
+  public func getCollectedData() -> Louie7.CollectorData
+  @objc deinit
+}
+public typealias CollectorData = [Swift.String : Swift.AnyHashable]
+public typealias CollectorDataCallBack = (_ collector: Louie7.Collector, _ data: Louie7.CollectorData) -> Swift.Void
+public protocol ModuleCollectorDelegate : AnyObject {
+  func moduleCollector(_ collector: Louie7.Collector, didFinishCollectingData data: Louie7.CollectorData)
+}
+public protocol Collector {
+  func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  func beginCollecting()
+  func getCollectedData() -> Louie7.CollectorData
+}
+public protocol Louie7Interface {
+  static func build(apiKey: Swift.String) -> Louie7.Louie7
+  @available(iOS 13.0, *)
+  static func handleBackgroundTask(apiKey: Swift.String, identifier: Swift.String)
+  func start(completion: ((_ success: Swift.Bool) -> Swift.Void)?)
+  func getCollectedData() -> [Foundation.Date : Swift.String]
+  func getUserIdentifier() -> Swift.String
+}
+@_hasMissingDesignatedInitializers public class Louie7 : Louie7.Louie7Interface {
+  public static func build(apiKey: Swift.String) -> Louie7.Louie7
+  public func start(completion: ((_ success: Swift.Bool) -> Swift.Void)? = nil)
+  public func getCollectedData() -> [Foundation.Date : Swift.String]
+  public func getUserIdentifier() -> Swift.String
+  @available(iOS 13.0, *)
+  public static func handleBackgroundTask(apiKey: Swift.String, identifier: Swift.String)
+  @objc deinit
+}
+final public class MetalDelegate : Louie7.Delegate {
+  final public let options: Louie7.MetalDelegate.Options
+  final public var cDelegate: Louie7.MetalDelegate.CDelegate {
+    get
+  }
+  public init(options: Louie7.MetalDelegate.Options = Options())
+  @objc deinit
+}
+extension Louie7.MetalDelegate {
+  public struct Options : Swift.Equatable, Swift.Hashable {
+    public var allowsPrecisionLoss: Swift.Bool
+    public var waitType: Louie7.ThreadWaitType
+    public init()
+    public static func == (a: Louie7.MetalDelegate.Options, b: Louie7.MetalDelegate.Options) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+public enum ThreadWaitType : Swift.Equatable, Swift.Hashable {
+  case none
+  case passive
+  case active
+  case aggressive
+  public static func == (a: Louie7.ThreadWaitType, b: Louie7.ThreadWaitType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class GestureCollector : ObjectiveC.NSObject, Louie7.Collector {
+  public func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  public func beginCollecting()
+  public func getCollectedData() -> Louie7.CollectorData
+  @objc deinit
+  @objc override dynamic public init()
+}
+public enum Runtime {
+  public static var version: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class DeviceDataCollector : Louie7.Collector {
+  @objc deinit
+  public func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  public func getCollectedData() -> Louie7.CollectorData
+  public func beginCollecting()
+}
+public protocol Delegate : AnyObject {
+  typealias CDelegate = Swift.UnsafeMutablePointer<TensorFlowLiteC.TfLiteDelegate>
+  var cDelegate: Self.CDelegate { get }
+}
+@_hasMissingDesignatedInitializers public class ContactsCollector : Louie7.Collector {
+  public func setDelegate(_ delegate: Louie7.ModuleCollectorDelegate?)
+  public func beginCollecting()
+  public func getCollectedData() -> Louie7.CollectorData
+  public var keyValue: Swift.String
+  @objc deinit
+}
+final public class Interpreter {
+  final public let options: Louie7.Interpreter.Options?
+  final public let delegates: [Louie7.Delegate]?
+  final public var inputTensorCount: Swift.Int {
+    get
+  }
+  final public var outputTensorCount: Swift.Int {
+    get
+  }
+  public init(modelPath: Swift.String, options: Louie7.Interpreter.Options? = nil, delegates: [Louie7.Delegate]? = nil) throws
+  @objc deinit
+  final public func invoke() throws
+  final public func input(at index: Swift.Int) throws -> Louie7.Tensor
+  final public func output(at index: Swift.Int) throws -> Louie7.Tensor
+  final public func resizeInput(at index: Swift.Int, to shape: Louie7.Tensor.Shape) throws
+  @discardableResult
+  final public func copy(_ data: Foundation.Data, toInputAt index: Swift.Int) throws -> Louie7.Tensor
+  final public func allocateTensors() throws
+}
+extension Louie7.Interpreter {
+  public struct Options : Swift.Equatable, Swift.Hashable {
+    public var threadCount: Swift.Int?
+    public init()
+    public static func == (a: Louie7.Interpreter.Options, b: Louie7.Interpreter.Options) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+@available(*, deprecated, renamed: "Interpreter.Options")
+public typealias InterpreterOptions = Louie7.Interpreter.Options
