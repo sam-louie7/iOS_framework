@@ -1,2 +1,2 @@
 # sdk_framework
-this is the SDK ios framework to import to host application
+this is the SDK ios and android frameworks to import to host application
